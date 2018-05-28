@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.DataAccess.Interface;
 using ProductCatalog.Model;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace PubSubCore.Controllers
 {
@@ -21,16 +22,24 @@ namespace PubSubCore.Controllers
 
         [HttpGet]
         [Route("GetProducts")]
-        public IList<Product> GetProducts()
+        public IList<ProductModel> GetProducts()
         {
             return productDataAccess.GetProducts();
         }
 
         [HttpGet]
         [Route("GetProduct/{Id}")]
-        public Product GetProduct(int Id)
+        public ProductModel GetProduct(int Id)
         {
             return productDataAccess.GetProduct(Id);
+        }
+
+        [HttpPost]
+        [SwaggerResponse(204, Description = "No Content")]
+        [Route("SaveProduct")]
+        public void Save([FromBody] ProductModel product)
+        {
+            productDataAccess.CreateProduct(product);
         }
     }
 }

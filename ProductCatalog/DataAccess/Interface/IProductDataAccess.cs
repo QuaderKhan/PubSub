@@ -8,13 +8,13 @@ namespace ProductCatalog.DataAccess.Interface
 {
     public interface IProductDataAccess
     {
-        IList<Product> GetProducts();
+        IList<ProductModel> GetProducts();
 
-        Product GetProduct(int Id);
+        ProductModel GetProduct(int Id);
 
-        int CreateProduct(Product product);
+        int CreateProduct(ProductModel product);
 
-        int UpdateProduct(Product product);
+        int UpdateProduct(ProductModel product);
 
         void DeleteProduct(int Id);
     }
