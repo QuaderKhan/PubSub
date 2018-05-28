@@ -25,7 +25,7 @@ namespace PubSubCore.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void P0st([FromBody]string value)
         {
         }
 
