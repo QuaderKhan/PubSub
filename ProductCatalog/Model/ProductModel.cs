@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductCatalog.Model
 {
-    public class Product
+    public class ProductModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
