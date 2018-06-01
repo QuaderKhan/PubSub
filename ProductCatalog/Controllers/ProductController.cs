@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalog.Business;
 using ProductCatalog.DataAccess.Interface;
 using ProductCatalog.Model;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -15,20 +16,22 @@ namespace PubSubCore.Controllers
     public class ProductController : Controller
     {
         private IProductDataAccess productDataAccess;
-        public ProductController(IProductDataAccess ProductDataAccess)
+        private readonly IProductBusiness productBusiness;
+        public ProductController(IProductDataAccess ProductDataAccess, IProductBusiness ProductBusiness)
         {
             productDataAccess = ProductDataAccess;
+            productBusiness = ProductBusiness;
         }
 
         [HttpGet]
-        [Route("GetProducts")]
+        [Route("GetAll")]
         public IList<ProductModel> GetProducts()
         {
             return productDataAccess.GetProducts();
         }
 
         [HttpGet]
-        [Route("GetProduct/{Id}")]
+        [Route("Get/{Id}")]
         public ProductModel GetProduct(int Id)
         {
             return productDataAccess.GetProduct(Id);
@@ -36,10 +39,18 @@ namespace PubSubCore.Controllers
 
         [HttpPost]
         [SwaggerResponse(204, Description = "No Content")]
-        [Route("SaveProduct")]
+        [Route("Save")]
         public void Save([FromBody] ProductModel product)
         {
             productDataAccess.CreateProduct(product);
+        }
+
+        [HttpPut]
+        [Route("Update")]
+        [SwaggerResponse(204, Description = "No Content")]
+        public void Update([FromBody] ProductModel product)
+        {
+            productBusiness.UpdateProduct(product);
         }
     }
 }

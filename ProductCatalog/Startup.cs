@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ProductCatalog.Business;
 using ProductCatalog.DataAccess;
 using ProductCatalog.DataAccess.EntityFramework;
 using ProductCatalog.DataAccess.Interface;
@@ -31,6 +32,7 @@ namespace PubSubCore
         {
             services.AddMvc();
             services.TryAddTransient<IProductDataAccess, ProductDataAccess>();
+            services.TryAddTransient<IProductBusiness, ProductBusiness>();
             //services.AddSwaggerExtension();
             services.AddSwaggerGen(c =>
             {
