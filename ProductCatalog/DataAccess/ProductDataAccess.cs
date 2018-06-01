@@ -1,4 +1,5 @@
-﻿using ProductCatalog.DataAccess.EntityFramework;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalog.DataAccess.EntityFramework;
 using ProductCatalog.DataAccess.Interface;
 using ProductCatalog.Model;
 using System;
@@ -42,7 +43,21 @@ namespace ProductCatalog.DataAccess
 
         public int UpdateProduct(ProductModel product)
         {
-            throw new NotImplementedException();
+            using (var db = _context)
+            {
+                db.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                
+                try
+                {
+                    return db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    throw;
+
+                }
+            }
         }
 
         private IList<ProductModel> ProductList()
